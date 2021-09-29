@@ -42,10 +42,8 @@ Sub AllStocksAnalysisRefactored()
         Dim tickerindex As String
         
     For j = 0 To 11
-       
-          tickerindex = 0
-          tickerindex = tickers(j)
-            
+        
+        tickerindex = tickers(j)
             
         
     '1b) Create three output arrays
@@ -54,59 +52,50 @@ Sub AllStocksAnalysisRefactored()
         Dim tickerStartingPrices(11) As Single
     
     ''2a) Create a for loop to initialize the tickerVolumes to zero.
+     
         
-        tickerVolumes(11) = 0
-        For k = 0 To 11
            
                               
     ''2b) Loop over all the rows in the spreadsheet.
-                 For i = 2 To RowCount
-                
-                        
+            For i = 2 To RowCount
+                                        
         '3a) Increase volume for current ticker
-                    If Cells(i, 1) = tickerindex And Cells(i + 1, 1) = tickerindex Then
+                If Cells(i, 1) = tickerindex Then
 
-                        tickerVolumes(j) = tickerVolumes(j) + Cells(i, 8).Value
+                    tickerVolumes(j) = tickerVolumes(j) + Cells(i, 8).Value
          
-                    End If
-                
-                    
+                               
+                End If
                 
         '3b) Check if the current row is the first row with the selected tickerIndex.
                        
-                    If Cells(i - 1, 1) <> tickerindex And Cells(i, 1) = tickerindex Then
+                If Cells(i - 1, 1) <> tickerindex And Cells(i, 1) = tickerindex Then
 
-                        tickerStartingPrices(j) = Cells(i, 6).Value
-  
-                   End If
-                   
+                    tickerStartingPrices(j) = Cells(i, 6).Value
                  
-                   
+                                
+                End If
         
         '3c) check if the current row is the last row with the selected ticker
          'If the next row’s ticker doesn’t match, increase the tickerIndex.
         'If  Then
-                    If Cells(i + 1, 1) <> tickerindex And Cells(i, 1) = tickerindex Then
+                   
+                If Cells(i + 1, 1) <> tickerindex And Cells(i, 1) = tickerindex Then
 
-                        tickerEndingPrices(j) = Cells(i, 6).Value
-             
-                    End If
-            
-                               
-                Next i
-
-            '3d Increase the tickerIndex.
-            
-             If Cells(i + 1, 1) <> tickerindex And Cells(i - 1, 1) <> tickerindex Then
+                    tickerEndingPrices(j) = Cells(i, 6).Value
+                    tickerindex = Cells(i + 1, 1).Value
+                    
+                Exit For
+                
+                End If
         
-                tickerindex = Cells(i + 1, 1)
-                                
-                
-                
-            End If
-    
-        Next k
+               
+                    
+            Next i
+
+            '3d Increase the tickerIndex
               
+                    
     Next j
        
               
