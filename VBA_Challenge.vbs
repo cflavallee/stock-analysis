@@ -56,7 +56,7 @@ Sub AllStocksAnalysisRefactored()
     'Loop over all the rows in the spreadsheet.
             For i = 2 To RowCount
                                         
-        'Increase volume for current ticker and store in tickerVolumes array.
+        'Increase volume for current ticker and store in tickerVolumes array, based on tickerindex.
                 If Cells(i, 1) = tickerindex Then
 
                     tickerVolumes(j) = tickerVolumes(j) + Cells(i, 8).Value
@@ -64,7 +64,7 @@ Sub AllStocksAnalysisRefactored()
                                
                 End If
                 
-        'Find starting price for each ticker.
+        'Find starting price for each ticker and storing in the array, based on tickerindex
                        
                 If Cells(i - 1, 1) <> tickerindex And Cells(i, 1) = tickerindex Then
 
@@ -73,12 +73,12 @@ Sub AllStocksAnalysisRefactored()
                                 
                 End If
         
-        'Find ending price for each tiker.
+        'Find ending price for each ticker and storing in the array, based on ticker index.
                    
                 If Cells(i + 1, 1) <> tickerindex And Cells(i, 1) = tickerindex Then
 
                     tickerEndingPrices(j) = Cells(i, 6).Value
-                    tickerindex = Cells(i + 1, 1).Value
+                   
                     
                 'Exit for loop after ending price has been stored.
                 Exit For
@@ -144,5 +144,12 @@ Sub AllStocksAnalysisRefactored()
     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
 
 
+
+End Sub
+
+'Clear output data
+Sub ClearWorksheet()
+
+    Cells.Clear
 
 End Sub
